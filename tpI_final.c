@@ -100,36 +100,44 @@ int main(int argc, char* argv[])
 	long long chat_id = 0;
 	char* p = strstr (ult_update, "\"chat\":" );
 	if (p){
+		
 		p = strstr(p, "\"id\":");
 		sscanf(p , "\"id\":%lld", &chat_id);
 		printf("\nchat_id = %lld\n", chat_id);
+	
 	}
 	
 	char nombre [100] = {0};
 	p = strstr (ult_update, "\"first_name\":");
 	if (p){
+	
 		sscanf (p, "\"first_name\":\"%[^\"]\"", nombre);
 		printf("nombre = %s\n", nombre);
+
 	}
 	
 	char mensaje[200] = {0};
 	p = strstr (ult_update, "\"text\":");
 	if (p){
+	
 		sscanf(p, "\"text\":\"%[^\"]\"", mensaje);
 		printf("mensaje = %s\n", mensaje);
+	
 	}
 	
 	long long tiempo = 0;
 	p = strstr(ult_update, "\"date\":");
 	if (p) {
+	
 		sscanf(p, "\"date\":%lld", &tiempo);
+
 	}
 	printf("tiempo = %lld\n", tiempo);
 	
 	char send_url[600];
 	
 	if (strcmp(mensaje, "hola") == 0) {
-	
+		
 		sprintf(send_url, "https://api.telegram.org/bot%s/sendMessage?chat_id=%lld&text=Hola%%20%s",token, chat_id, nombre);
 		
 	}else if (strcmp(mensaje, "estoy aprobado?") == 0) {
@@ -142,10 +150,11 @@ int main(int argc, char* argv[])
 		
 		
 	}else {
+		
 		free(chunk.response);
 		offset = update_id + 1;
 		sleep(2);
-
+		
 		continue;
 	}
 	
